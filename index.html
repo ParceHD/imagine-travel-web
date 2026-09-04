@@ -13,8 +13,8 @@
     --black:#0f0d0b;
     --white:#ffffff;
     --paper:#f4efe7;
-    --accent:#0e8c7e;      /* verde azulado / mar — calma + confianza */
-    --accent-ink:#0a6b60;
+    --accent:#b46b47;      /* terracota cálida — calma, contrasta con el agua */
+    --accent-ink:#8f4f30;
     --line:#0f0d0b;
     --radius:3px;
     --maxw:1240px;
@@ -60,6 +60,8 @@
   .btn-black:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-accent)}
   .btn-ghost{background:transparent;color:var(--black)}
   .btn-ghost:hover{background:var(--black);color:var(--white)}
+  .btn-white{background:var(--white);color:var(--black);border-color:var(--white)}
+  .btn-white:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--black)}
   .btn-lg{padding:18px 34px;font-size:.85rem}
 
   /* ---------- nav (sobre el hero, se va con el scroll) ---------- */
@@ -295,10 +297,10 @@
   form .btn{width:100%;justify-content:center;margin-top:20px}
   .form-note{font-size:.74rem;color:#777;margin-top:9px;text-align:center}
   .form-intent[hidden]{display:none}
-  .form-intent{display:flex;gap:11px;align-items:flex-start;background:rgba(14,140,126,.1);border:1.5px solid var(--accent);border-radius:var(--radius);padding:13px 15px;margin-bottom:20px;font-size:.86rem;line-height:1.45}
+  .form-intent{display:flex;gap:11px;align-items:flex-start;background:rgba(180,107,71,.12);border:1.5px solid var(--accent);border-radius:var(--radius);padding:13px 15px;margin-bottom:20px;font-size:.86rem;line-height:1.45}
   .form-intent svg{width:17px;height:17px;color:var(--accent);flex:none;margin-top:2px}
   .form-intent strong{color:var(--accent-ink)}
-  @keyframes intentflash{0%{background:rgba(14,140,126,.3)}100%{background:rgba(14,140,126,.1)}}
+  @keyframes intentflash{0%{background:rgba(180,107,71,.32)}100%{background:rgba(180,107,71,.12)}}
   .form-intent.flash{animation:intentflash 1.1s ease}
 
   /* ---------- FOOTER ---------- */
@@ -378,7 +380,7 @@
 
   <p class="intro-sub">Agencia de viajes en Barcelona. Buscamos las ofertas, diseñamos el viaje entero y tú solo haces la maleta.</p>
   <div class="intro-actions">
-    <a href="#ofertas" class="btn btn-accent btn-lg">Ver ofertas</a>
+    <a href="#ofertas" class="btn btn-white btn-lg">Ver ofertas</a>
     <a href="#contacto" class="btn btn-light btn-lg">Viaje a medida</a>
   </div>
 </header>

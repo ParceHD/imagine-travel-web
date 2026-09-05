@@ -82,9 +82,8 @@
   @keyframes fadein{to{opacity:1}}
 
   .gnav{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:22px 34px}
-  .gnav .brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:1.12rem;letter-spacing:.01em}
-  .gnav .brand .mk{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.1)}
-  .gnav .brand .mk svg{width:19px;height:19px}
+  .gnav .brand{display:flex;align-items:center}
+  .gnav .brand img{height:56px;width:auto;display:block;filter:drop-shadow(0 2px 12px rgba(0,0,0,.45))}
   .gnav .links{display:flex;gap:30px;align-items:center}
   .gnav .links a{font-size:.9rem;font-weight:400;color:rgba(255,255,255,.88)}
   .gnav .links a:hover{color:#fff}
@@ -134,6 +133,10 @@
   .offers{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
   .offer{border:1px solid var(--line);border-radius:var(--radius);background:#fff;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .25s ease,box-shadow .25s ease}
   .offer:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .offer.span2{grid-column:1 / -1;flex-direction:row;align-items:stretch}
+  .offer.span2 .offer-media{width:46%;flex:none;aspect-ratio:auto;min-height:320px}
+  .offer.span2 .offer-body{flex:1;justify-content:center;padding:40px}
+  @media(max-width:1000px){.offer.span2{flex-direction:column}.offer.span2 .offer-media{width:100%;aspect-ratio:16/10;min-height:0}.offer.span2 .offer-body{padding:28px}}
   .offer-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--dark)}
   .oroll{display:flex;height:100%;width:400%;animation:oroll 22s cubic-bezier(.65,0,.35,1) infinite}
   .oroll .oframe{flex:0 0 25%;background-size:cover;background-position:center}
@@ -266,6 +269,11 @@
   form textarea{resize:vertical;min-height:92px}
   form .btn{width:100%;justify-content:center;margin-top:22px}
   .form-note{font-size:.76rem;color:#93a09d;margin-top:11px;text-align:center}
+  .form-btnrow{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+  .form-btnrow .btn{width:auto;flex:1 1 200px;margin-top:0}
+  .form-status{font-size:.82rem;margin-top:14px;text-align:center;padding:10px 14px;border-radius:var(--radius-sm)}
+  .form-status.ok{background:rgba(47,111,176,.12);color:var(--accent-ink)}
+  .form-status.err{background:rgba(200,60,50,.1);color:#a83a2e}
   .form-intent[hidden]{display:none}
   .form-intent{display:flex;gap:11px;align-items:flex-start;background:rgba(47,111,176,.1);border:1px solid rgba(47,111,176,.4);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:20px;font-size:.88rem;line-height:1.5}
   .form-intent svg{width:17px;height:17px;color:var(--accent);flex:none;margin-top:2px}
@@ -336,9 +344,8 @@
 
   <div class="glass">
     <nav class="gnav">
-      <a href="#top" class="brand">
-        <span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></span>
-        Imagine Travel
+      <a href="#top" class="brand" aria-label="Imagine Travel">
+        <img src="assets/logo-nav.png" alt="Imagine Travel">
       </a>
       <div class="links">
         <a href="#empresa">Nosotros</a>
@@ -617,6 +624,8 @@
         </div>
         <label for="fNombre">Nombre</label>
         <input type="text" id="fNombre" placeholder="Tu nombre" required>
+        <label for="fEmail">Tu email</label>
+        <input type="email" id="fEmail" placeholder="tu@email.com" required>
         <label for="fTipo">Qué te interesa</label>
         <select id="fTipo" required>
           <option value="" disabled selected>Elige una opción</option>
@@ -635,11 +644,18 @@
         <input type="text" id="fViajeros" placeholder="Ej. 2 adultos">
         <label for="fNotas">Cuéntanos más</label>
         <textarea id="fNotas" placeholder="Presupuesto orientativo, tipo de alojamiento, qué te apetece hacer..."></textarea>
-        <button type="submit" class="btn btn-accent">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2Z"/></svg>
-          Enviar por WhatsApp
-        </button>
-        <p class="form-note">Se abrirá WhatsApp con tu solicitud ya redactada.</p>
+        <div class="form-btnrow">
+          <button type="submit" class="btn btn-accent">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2Z"/></svg>
+            Enviar por WhatsApp
+          </button>
+          <button type="button" id="btnEmail" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Enviar por email
+          </button>
+        </div>
+        <p class="form-note">Elige cómo prefieres enviarnos tu solicitud.</p>
+        <p class="form-status" id="formStatus" hidden></p>
       </form>
     </div>
   </div>
@@ -691,8 +707,8 @@
       map:{lat:-1.5,lon:-78}, place:'Ecuador',
       iso:['ECU'],
       stripePriceId:'', amount:113000 },
-    { id:'honduras', title:'Honduras en Navidad', kicker:'Escapada de temporada', price:1350,
-      desc:'Ruinas mayas, selva y Caribe hondureño en las fechas más especiales del año. Plazas limitadas para diciembre.',
+    { id:'honduras', title:'Honduras en Navidad', kicker:'Navidad al sol', price:1350,
+      desc:'Cambia el frío por el Caribe: playas de Roatán y las Islas de la Bahía para pasar las Navidades al sol. Plazas limitadas para diciembre.',
       incl:['Salida en Navidad','Plazas limitadas'],
       imgs:['assets/dest/honduras-1.jpg','assets/dest/honduras-2.jpg','assets/dest/honduras-3.jpg'],
       map:{lat:15,lon:-86.5}, place:'Honduras',
@@ -726,17 +742,13 @@
   const NAMES_G = () => window.WORLD_NAMES || {};
   const countryName = iso => ES_NAMES[iso] || NAMES_G()[iso] || iso;
 
-  // lleva al formulario con el destino y un mensaje claro de presupuesto
+  // lleva al formulario con el destino ya puesto
   function goToForm(place){
     const dest = document.getElementById('fDestino');
     const tipo = document.getElementById('fTipo');
-    const notas = document.getElementById('fNotas');
     const intent = document.getElementById('formIntent');
     if (dest) dest.value = place;
     if (tipo && !tipo.value) tipo.value = 'Viaje a medida';
-    if (notas && (!notas.value.trim() || /^Quiero un presupuesto para viajar a .+\.$/.test(notas.value.trim()))) {
-      notas.value = `Quiero un presupuesto para viajar a ${place}.`;
-    }
     if (intent){
       document.getElementById('formIntentPlace').textContent = place;
       intent.hidden = false;
@@ -756,13 +768,22 @@
       // }).then(r => r.json()).then(s => { window.location = s.url; });
       return;
     }
-    window.open(waLink(`Hola Imagine Travel, quiero reservar la oferta de ${o.title} (desde ${priceLabel(o)} por persona). ¿Cómo procedemos con el pago?`), '_blank');
+    const msg = [
+      '✈️ *RESERVA · Imagine Travel*',
+      '',
+      'Quiero reservar esta oferta:',
+      `🌍 *${o.title}*`,
+      `💶 Desde *${priceLabel(o)}* por persona`,
+      '',
+      '¿Cómo procedemos con el pago?',
+    ].join('\n');
+    window.open(waLink(msg), '_blank');
   }
 
   /* ---------- render OFERTAS grid (con pase de fotos) ---------- */
   const grid = document.getElementById('offersGrid');
   grid.innerHTML = OFFERS.map((o,i) => `
-    <article class="offer reveal ${i%2? 'd2':'d1'}">
+    <article class="offer reveal ${i%2? 'd2':'d1'}${(i === OFFERS.length-1 && OFFERS.length%2) ? ' span2' : ''}">
       <div class="offer-media">
         <div class="oroll">
           ${[...o.imgs, o.imgs[0]].map(src => `<div class="oframe" style="background-image:url('${src}')"></div>`).join('')}
@@ -874,19 +895,79 @@
   selectOffer(OFFERS[0].id);
 
   /* ---------- form ---------- */
-  document.getElementById('viajeForm').addEventListener('submit', ev => {
-    ev.preventDefault();
-    const g = id => (document.getElementById(id).value || '').trim();
-    const msg =
-`Hola Imagine Travel, quiero pedir un presupuesto para un viaje.
+  /* Para activar el envío por email: crea una cuenta gratuita en
+     https://formspree.io con el email de la empresa, crea un formulario
+     y pega aquí el endpoint que te dan (algo tipo https://formspree.io/f/xxxxxxx) */
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/TU_ID_AQUI';
 
-• Nombre: ${g('fNombre')}
-• Qué me interesa: ${g('fTipo')}
-• Destino o zona: ${g('fDestino') || '(por definir)'}
-• Fechas aproximadas: ${g('fFechas') || '(por definir)'}
-• Nº de viajeros: ${g('fViajeros') || '(por definir)'}
-• Más detalles: ${g('fNotas') || '-'}`;
-    window.open(waLink(msg), '_blank');
+  const viajeForm = document.getElementById('viajeForm');
+  const formStatus = document.getElementById('formStatus');
+  const g = id => (document.getElementById(id).value || '').trim();
+
+  function showStatus(msg, ok) {
+    formStatus.textContent = msg;
+    formStatus.className = 'form-status ' + (ok ? 'ok' : 'err');
+    formStatus.hidden = false;
+  }
+
+  function buildLines() {
+    const lines = [
+      '✈️ *SOLICITUD DE PRESUPUESTO · Imagine Travel*',
+      '',
+      `👤 *Nombre:* ${g('fNombre') || '—'}`,
+      `✉️ *Email:* ${g('fEmail') || '—'}`,
+      `🧭 *Tipo de viaje:* ${g('fTipo') || 'Por definir'}`,
+      `📍 *Destino o zona:* ${g('fDestino') || 'Por concretar'}`,
+      `📅 *Fechas:* ${g('fFechas') || 'Por concretar'}`,
+      `👥 *Viajeros:* ${g('fViajeros') || 'Por concretar'}`,
+    ];
+    if (g('fNotas')) lines.push(`📝 *Más detalles:* ${g('fNotas')}`);
+    lines.push('', '_Enviado desde la web_');
+    return lines;
+  }
+
+  viajeForm.addEventListener('submit', ev => {
+    ev.preventDefault();
+    if (!viajeForm.reportValidity()) return;
+    window.open(waLink(buildLines().join('\n')), '_blank');
+  });
+
+  document.getElementById('btnEmail').addEventListener('click', async () => {
+    if (!viajeForm.reportValidity()) return;
+    if (FORMSPREE_ENDPOINT.includes('TU_ID_AQUI')) {
+      showStatus('El envío por email aún no está configurado. Contacta con Tessen para activarlo.', false);
+      return;
+    }
+    const btn = document.getElementById('btnEmail');
+    btn.disabled = true;
+    formStatus.hidden = true;
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new URLSearchParams({
+          _subject: 'Nueva reserva - Web Imagine Travel',
+          nombre: g('fNombre'),
+          email: g('fEmail'),
+          tipo: g('fTipo'),
+          destino: g('fDestino'),
+          fechas: g('fFechas'),
+          viajeros: g('fViajeros'),
+          notas: g('fNotas'),
+          mensaje: buildLines().join('\n'),
+        }),
+      });
+      if (res.ok) {
+        showStatus('¡Solicitud enviada! Te responderemos por email en breve.', true);
+        viajeForm.reset();
+      } else {
+        showStatus('No se pudo enviar. Prueba por WhatsApp o escríbenos a angie@imagine-travel.eu.', false);
+      }
+    } catch (e) {
+      showStatus('No se pudo enviar. Prueba por WhatsApp o escríbenos a angie@imagine-travel.eu.', false);
+    } finally {
+      btn.disabled = false;
+    }
   });
 
   /* ---------- vídeo de fondo (assets/hero.mp4) ---------- */
